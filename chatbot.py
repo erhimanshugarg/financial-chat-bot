@@ -13,6 +13,7 @@ from sentence_transformers import SentenceTransformer
 from rank_bm25 import BM25Okapi
 from transformers import AutoModelForCausalLM, AutoTokenizer
 import accelerate
+from pdfminer.pdfdocument import PDFSyntaxError
 
 # Global variables for FAISS index, text chunks, and models
 faiss_index = None
