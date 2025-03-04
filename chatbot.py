@@ -29,6 +29,9 @@ def download_report(url, filename):
         with open(os.path.join("financial_reports", filename), "wb") as file:
             file.write(response.content)
         print(f"PDF downloaded successfully and saved as {filename}")
+        # Log the first 100 bytes of the file to verify it's a PDF
+        with open(file_path, "rb") as f:
+            print(f"File header: {f.read(100)}")
     else:
         print(f"Failed to download PDF. Status code: {response.status_code}")
 
@@ -36,9 +39,13 @@ def download_report(url, filename):
 def extract_text_from_pdf(pdf_path):
     """Extract text from a financial PDF statement."""
     text = ""
-    with pdfplumber.open(pdf_path) as pdf:
-        for page in pdf.pages:
-            text += page.extract_text() + "\n"
+    try:
+        with pdfplumber.open(pdf_path) as pdf:
+            for page in pdf.pages:
+                text += page.extract_text() + "\n"
+    except PDFSyntaxError:
+        print(f"Error: {pdf_path} is not a valid PDF file.")
+        return None
     return text
 
 def clean_text(text):
