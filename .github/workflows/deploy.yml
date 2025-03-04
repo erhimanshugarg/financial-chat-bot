@@ -3,40 +3,32 @@ name: Deploy Streamlit App
 on:
   push:
     branches:
-      - main  # Trigger the workflow on pushes to the `main` branch
+      - main
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest  # Use the latest Ubuntu environment
+    runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Checkout the repository
-      - name: Checkout repository
-        uses: actions/checkout@v3
+    - name: Checkout code
+      uses: actions/checkout@v2
 
-      # Step 2: Set up Python
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: "3.9"  # Specify the Python version
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.9
 
-      # Step 3: Install dependencies
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
 
-      # Step 4: Run the preprocessing script
-      - name: Run preprocessing script
-        run: python chatbot.py
+    - name: Run the chatbot
+      run: python chatbot.py
 
-      # Step 5: Deploy to Streamlit Sharing
-      - name: Deploy to Streamlit Sharing
-        env:
-          STREAMLIT_SHARING_TOKEN: ${{ secrets.STREAMLIT_SHARING_TOKEN }}  # Add your Streamlit Sharing token as a secret
-        run: |
-          # Install Streamlit Sharing CLI (if available)
-          pip install streamlit-sharing
-
-          # Deploy the app using Streamlit Sharing CLI
-          streamlit sharing deploy --token $STREAMLIT_SHARING_TOKEN
+    - name: Deploy the app using Streamlit Sharing CLI
+      run: |
+        # Deploy the app using Streamlit Sharing CLI
+        streamlit sharing deploy --token $STREAMLIT_SHARING_TOKEN
+      env:
+        STREAMLIT_SHARING_TOKEN: ${{ secrets.STREAMLIT_SHARING_TOKEN }}
