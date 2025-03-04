@@ -15,6 +15,11 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 import accelerate
 from pdfminer.pdfdocument import PDFSyntaxError
 
+from joblib import Memory
+
+# Create a cache directory
+memory = Memory(location="./cache", verbose=
+
 # Global variables for FAISS index, text chunks, and models
 faiss_index = None
 text_chunks = None
@@ -75,6 +80,7 @@ def parse_pdf(pdf_path, output_txt_path):
         print("PDF not found! Please check the path.")
 
 # Step 3: Load Text Chunks for RAG
+@memory.cache
 def load_text_chunks(directory, chunk_size=200):
     """Load text chunks from processed .txt files with smaller chunk sizes."""
     all_chunks = []
@@ -231,6 +237,7 @@ def generate_reponse_bot(query):
         return answer, confidence
 
 # Step 12: Load Preprocessed Data
+@memory.cache
 def load_preprocessed_data():
     """Load preprocessed data (FAISS index, text chunks, models, etc.)."""
     global faiss_index, text_chunks, model, slm_model, tokenizer
