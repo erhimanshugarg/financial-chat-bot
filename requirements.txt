@@ -52,7 +52,7 @@ httpx-sse==0.4.0
 huggingface-hub==0.29.1
 idna==3.10
 ipykernel==6.29.5
-ipython==8.26.0
+ipython==8.18.1
 ipywidgets==8.1.5
 isoduration==20.11.0
 jedi==0.19.1
