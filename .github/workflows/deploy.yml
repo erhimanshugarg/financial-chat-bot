@@ -25,8 +25,3 @@ jobs:
 
       - name: Run chatbot script
         run: python chatbot.py
-
-      # Remove this step if you are using Streamlit Community Cloud for deployment
-      # Update this step if you are using another platform for deployment
-      - name: Deploy to Streamlit Community Cloud
-        run: echo "Deploying to Streamlit Community Cloud..."
