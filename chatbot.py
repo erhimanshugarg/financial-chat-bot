@@ -18,7 +18,7 @@ from pdfminer.pdfdocument import PDFSyntaxError
 from joblib import Memory
 
 # Create a cache directory
-memory = Memory(location="./cache", verbose=
+memory = Memory(location="./cache", verbose=0)
 
 # Global variables for FAISS index, text chunks, and models
 faiss_index = None
