@@ -6,6 +6,11 @@ from chatbot import generate_reponse_bot, load_preprocessed_data
 # Set page config
 st.set_page_config(page_title="Retrieval-Augmented Generation (RAG)", layout="wide")
 
+# Check if data files exist, if not, generate them
+if not os.path.exists("financial_index.faiss") or not os.path.exists("text_chunks.pkl"):
+    import chatbot
+    chatbot.main()
+
 # Cache the data so that it is not loaded multiple times
 @st.cache_resource
 def load_data():
