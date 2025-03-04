@@ -245,8 +245,9 @@ def load_preprocessed_data():
         "microsoft/phi-1_5", torch_dtype=torch.float16
     ).to(device)
 
-# Preprocessing (Run once)
-if __name__ == "__main__":
+# Step 13: Main Function for Preprocessing
+def main():
+    """Run preprocessing steps."""
     # Create the folder if it doesn't exist
     folder_name = "financial_reports"
     os.makedirs(folder_name, exist_ok=True)
@@ -279,3 +280,7 @@ if __name__ == "__main__":
     slm_model = AutoModelForCausalLM.from_pretrained(
         "microsoft/phi-1_5", torch_dtype=torch.float16
     ).to(device)
+
+# Run preprocessing if this script is executed directly
+if __name__ == "__main__":
+    main()
