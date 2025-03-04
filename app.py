@@ -1,6 +1,7 @@
 # app.py
 
 import streamlit as st
+import os
 from chatbot import generate_reponse_bot, load_preprocessed_data
 
 # Set page config
