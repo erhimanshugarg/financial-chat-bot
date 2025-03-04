@@ -26,9 +26,13 @@ def download_report(url, filename):
     """Download a PDF report from a URL and save it locally."""
     response = requests.get(url)
     if response.status_code == 200:
-        with open(os.path.join("financial_reports", filename), "wb") as file:
+        file_path = os.path.join("financial_reports", filename)
+        with open(file_path, "wb") as file:
             file.write(response.content)
         print(f"PDF downloaded successfully and saved as {filename}")
+        # with open(os.path.join("financial_reports", filename), "wb") as file:
+        #     file.write(response.content)
+        # print(f"PDF downloaded successfully and saved as {filename}")
         # Log the first 100 bytes of the file to verify it's a PDF
         with open(file_path, "rb") as f:
             print(f"File header: {f.read(100)}")
